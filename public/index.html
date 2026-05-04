@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Notes App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>📝 Real-Time Notes</h1>
+      <div class="user-info">
+        <select id="userSelect" class="user-select">
+          <option value="1">👤 User 1</option>
+          <option value="2">👤 User 2</option>
+          <option value="1-admin">👑 Admin</option>
+        </select>
+        <span id="connectionStatus" class="connection-status">● Offline</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="🔍 Search notes..."
+            autocomplete="off"
+          >
+          <span class="search-loading" id="searchLoading" style="display: none;">⟳</span>
+        </div>
+
+        <div class="filters">
+          <button id="viewAllBtn" class="filter-btn active">All Notes</button>
+          <button id="viewTrashBtn" class="filter-btn">🗑️ Trash</button>
+        </div>
+
+        <div class="notes-list" id="notesList">
+          <div class="empty-state">No notes yet. Create one to get started!</div>
+        </div>
+
+        <div class="pagination" id="pagination">
+          <button id="prevBtn" class="page-btn" disabled>← Previous</button>
+          <span id="pageInfo" class="page-info">Page 1</span>
+          <button id="nextBtn" class="page-btn">Next →</button>
+        </div>
+      </aside>
+
+      <!-- Editor -->
+      <section class="editor">
+        <div id="noSelection" class="no-selection">
+          <h2>Welcome! 👋</h2>
+          <p>Create a new note or select an existing one to get started.</p>
+          <button id="createNewBtn" class="btn btn-primary">+ Create New Note</button>
+        </div>
+
+        <div id="editorView" class="editor-view" style="display: none;">
+          <div class="editor-header">
+            <input 
+              type="text" 
+              id="noteTitle" 
+              class="note-title" 
+              placeholder="Note Title"
+            >
+            <div class="editor-actions">
+              <span id="lastUpdated" class="last-updated">Just now</span>
+              <button id="saveBtn" class="btn btn-primary">Save</button>
+              <button id="deleteBtn" class="btn btn-danger">🗑️ Delete</button>
+              <button id="restoreBtn" class="btn btn-success" style="display: none;">↩️ Restore</button>
+            </div>
+          </div>
+
+          <textarea 
+            id="noteContent" 
+            class="note-content" 
+            placeholder="Start typing your note..."
+          ></textarea>
+
+          <div class="editor-footer">
+            <span id="charCount" class="char-count">0 characters</span>
+            <span id="wordCount" class="word-count">0 words</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Real-time Activity Feed -->
+    <div class="activity-monitor" id="activityMonitor">
+      <h3>Live Activity</h3>
+      <ul id="activityFeed"></ul>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
